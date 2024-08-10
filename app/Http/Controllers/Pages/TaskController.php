@@ -91,6 +91,6 @@ class TaskController extends Controller
         $task->status = $task->status === 'completed' ? 'pending': 'completed';
         $task->save();
 
-        return \response()->json(['status', $task->status]);
+        return \response()->json(['status' => $task->status]);
     }
 }

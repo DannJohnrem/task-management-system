@@ -44,17 +44,19 @@
                                 {{ $task->category }}
                             </td>
                             <td class="px-4 py-4 text-xs">
-                                <button class="font-semibold rounded-lg toggle-status" data-id="{{ $task->id }}">
+                                <button class="font-semibold rounded-lg toggle-status" data-id="{{ $task->id }}"
+                                    data-status="{{ $task->status == 'completed' ? 'completed' : 'pending' }}">
                                     @if($task->status == 'completed')
-                                    <span
-                                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
-                                        Mark as Completed
-                                    </span>
-                                    @else
                                     <span
                                         class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full">
                                         Mark as Pending
                                     </span>
+                                    @else
+                                    <span
+                                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
+                                        Mark as Completed
+                                    </span>
+
                                     @endif
                                 </button>
                             </td>
@@ -121,7 +123,7 @@
                         if (newStatus === 'completed') {
                             button.text('Mark as Pending');
                             button.removeClass('px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full');
-                            button.addClass('px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full');
+                            button.addClass('px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full');
                         } else {
                             button.text('Mark as Completed');
                             button.removeClass('px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full');
