@@ -36,42 +36,38 @@ This Task Management System is a web application built using Laravel and Blade t
 - The following jQuery script is used for handling AJAX requests for toggling task status:
 
     ```javascript
-    $(document).ready(function() {
-        $('.toggle-status').click(function() {
-            var taskId = $(this).data('id');
-            var button = $(this);
-            
-            $.ajax({
-                url: '/tasks/' + taskId + '/toggle-status',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if (response.status === 'completed') {
-                        button.text('Mark as Pending')
-                            .removeClass('bg-green-500 hover:bg-green-600')
-                            .addClass('bg-red-500 hover:bg-red-600')
-                            .closest('tr').find('td:nth-child(5) span')
-                            .removeClass('bg-red-100 text-red-700')
-                            .addClass('bg-green-100 text-green-700')
-                            .text('Completed');
-                    } else {
-                        button.text('Mark as Completed')
-                            .removeClass('bg-red-500 hover:bg-red-600')
-                            .addClass('bg-green-500 hover:bg-green-600')
-                            .closest('tr').find('td:nth-child(5) span')
-                            .removeClass('bg-green-100 text-green-700')
-                            .addClass('bg-red-100 text-red-700')
-                            .text('Pending');
+        $(document).ready(function() {
+            $('.toggle-status').click(function() {
+                var button = $(this);
+                var taskId = button.data('id');
+                var currentStatus = button.data('status');
+
+                $.ajax({
+                    url: '/task/' + taskId + '/toggle-status',
+                    method: 'PATCH',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        var newStatus = response.status;
+                        button.data('status', newStatus);
+
+                        if (newStatus === 'completed') {
+                            button.text('Mark as Pending');
+                            button.removeClass('px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full');
+                            button.addClass('px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full');
+                        } else {
+                            button.text('Mark as Completed');
+                            button.removeClass('px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full');
+                            button.addClass('px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full');
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log('Error', xhr.responseText);
                     }
-                },
-                error: function() {
-                    alert('There was an error updating the task status.');
-                }
+                });
             });
         });
-    });
     ```
 
 ### Database Migrations and Seeding
