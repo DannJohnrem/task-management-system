@@ -36,7 +36,7 @@ This Task Management System is a web application built using Laravel and Blade t
 - The following jQuery script is used for handling AJAX requests for toggling task status:
 
     ```javascript
-        $(document).ready(function() {
+       $(document).ready(function() {
             $('.toggle-status').click(function() {
                 var button = $(this);
                 var taskId = button.data('id');
@@ -55,7 +55,7 @@ This Task Management System is a web application built using Laravel and Blade t
                         if (newStatus === 'completed') {
                             button.text('Mark as Pending');
                             button.removeClass('px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full');
-                            button.addClass('px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full');
+                            button.addClass('px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full');
                         } else {
                             button.text('Mark as Completed');
                             button.removeClass('px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full');
