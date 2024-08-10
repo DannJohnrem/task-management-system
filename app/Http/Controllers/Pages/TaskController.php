@@ -17,7 +17,7 @@ class TaskController extends Controller
      */
     public function index(): View
     {
-        $tasks = Task::where('user_id', Auth::id())->paginate(5);
+        $tasks = Task::where('user_id', Auth::id())->latest()->paginate(5);
 
         return view('pages.tasks.index', compact('tasks'));
     }
